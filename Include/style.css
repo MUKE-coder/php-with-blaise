@@ -1,0 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 3rem;
+  background-color: aliceblue;
+}
+nav {
+  display: flex;
+  gap: 1rem;
+}
+main {
+  min-height: 100vh;
+}
+footer {
+  padding: 1rem 3rem;
+  background-color: black;
+  color: white;
+  font-size: 1.5rem;
+}
