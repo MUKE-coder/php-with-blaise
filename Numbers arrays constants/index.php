@@ -51,7 +51,7 @@ $totalPrice =array_reduce($prices,function($acc,$current){
 $maximum_price =array_reduce($prices,function($prev,$current){
   return $current >$prev ? $current:$prev;
 },$prices[0]);
-print_r($maximum_price);
+print_r($maximum_price)//1800;
 
 ?>
 
