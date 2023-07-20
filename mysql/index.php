@@ -1,22 +1,8 @@
 <?php
 require("db_connect.php");
-$success_msg;
-if(isset($_POST['submitBtn'])){
-  $fullname =$_POST['fullname'];
-  $email =$_POST['email'];
-  //Validate
+$sql ="SELECT * FROM clients";
+$result =mysqli_query($conn,$sql);
 
-  // DATABASE
-  // 1) SQL STATEMENT
-  $sql ="INSERT INTO clients (fullname,email) VALUES('$fullname','$email')";
-
-  //run the sql
-  if(mysqli_query($conn,$sql)){
-   $success_msg="New recorded added to db";
-  }else{
-    echo "Something went wrong".mysqli_error($conn);
-  };
-}
 ?>
 
 
@@ -27,24 +13,41 @@ if(isset($_POST['submitBtn'])){
   <meta charset="UTF-8">
   <meta name="viewport" content="width= , initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <h2> Mysql Database</h2>
-  <?php
-  
-  if(isset($success_msg)){
-    echo $success_msg;
-  }
-  
-  ?>
+  <header>
+    <h2>All Clients</h2>
+    <a href="create.php">Create a New Client</a>
+  </header>
+  <table>
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php 
+      if(mysqli_num_rows($result)>0){
+        while($row=mysqli_fetch_assoc($result)){?>
+      <tr>
+        <td><?php echo $row['id'] ?></td>
+        <td><?php echo $row['fullname'] ?></td>
+        <td><?php echo $row['email'] ?></td>
+        <td>
+          <a href="edit.php?id=<?php echo $row['id'] ?>">edit</a>
+          <a href="view.php?id=<?php echo $row['id'] ?>">View</a>
+          <a href="delete.php?id=<?php echo $row['id'] ?>">delete</a>
+        </td>
+      </tr>
+      <?php    }
+      }; ?>
+    </tbody>
+  </table>
 </body>
-<form method="POST">
-  <label for="name">Full Name</label>
-  <input type="text" name="fullname" id="">
-  <label for="email">Email</label>
-  <input type="email" name="email" id="">
-  <input type="submit" name="submitBtn" value="Submit">
-</form>
 
 </html>
